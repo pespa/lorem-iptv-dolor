@@ -17,7 +17,7 @@ export default defineEventHandler(async (event) => {
 
     const response = await $fetch(
         `https://ss.paneli.live/api/api.php?get_search_results=null&count=1000000&api_key=${apiKey}`,
-        {headers: config.headers}
+        { headers: config.headers }
     );
 
     // Generate M3U content
