@@ -32,8 +32,16 @@ export default defineEventHandler(async (event) => {
         // Rename specific groups
         if (groupTitle === 'Muzik') {
             groupTitle = 'Muzike';
+        } else if (groupTitle === 'Gëzuar 2025') {
+            groupTitle = 'Muzike';
         } else if (groupTitle === 'Fëmije') {
             groupTitle = 'Femije';
+        } else if (groupTitle === 'Humor') {
+            groupTitle = 'Filma';
+        } else if (groupTitle === 'Humor & Argetim') {
+            groupTitle = 'Filma';
+        } else if (groupTitle === 'Seriale') {
+            groupTitle = 'Filma';
         }
 
         // Skip channels from specific categories
@@ -46,13 +54,12 @@ export default defineEventHandler(async (event) => {
             'zvicer',
             'austri',
             'maqedonia',
-            'turke'
+            'turke',
+            'exyu',
+            'cinema de',
+            'fetare',
+            'mahmutovitët dhe rexhepovitët'
         ];
-        
-        const categoryLower = groupTitle.toLowerCase();
-        if (excludedCategories.some(cat => categoryLower.includes(cat))) {
-            continue;
-        }
 
         // Standardize sport groups based on group title or channel name
         const channelNameLower = channel.channel_name.toLowerCase();
@@ -80,13 +87,14 @@ export default defineEventHandler(async (event) => {
         else if (channelNameLower.startsWith('tëvë')) {
             groupTitle = 'Tëvë';
         }
+        
+        const categoryLower = groupTitle.toLowerCase();
+        if (excludedCategories.some(cat => categoryLower.includes(cat))) {
+            continue;
+        }
 
         // Skip YouTube channels and some groups
-        if (
-            channel.channel_url.toLowerCase().includes('youtube') 
-            || groupTitle === 'Fetare'
-            || groupTitle === 'Mahmutovitët dhe Rexhepovitët'
-        ) continue;
+        if (channel.channel_url.toLowerCase().includes('youtube')) continue;
         
         if (!channelGroups[groupTitle]) {
             channelGroups[groupTitle] = [];
